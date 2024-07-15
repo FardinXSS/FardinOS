@@ -3379,7 +3379,10 @@ Nvidia
 "PowerMizerLevelAC"=-
 
 
+; enable preempton
 
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Scheduler]
+"EnablePreemption"=dword:00000001
 
 
 ;nvidia latency tweaks
@@ -3448,6 +3451,8 @@ Nvidia
 "RMLpwrGrIdleThresholdUs"=dword:00000001
 "RMLpwrGrRgIdleThresholdUs"=dword:00000001
 "RMLpwrMsIdleThresholdUs"=dword:00000001
+"DisableDynamicPstate"=dword:00000001
+
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001]
 "RMDeepL1EntryLatencyUsec"=dword:00000001
@@ -3458,6 +3463,7 @@ Nvidia
 "RMLpwrGrIdleThresholdUs"=dword:00000001
 "RMLpwrGrRgIdleThresholdUs"=dword:00000001
 "RMLpwrMsIdleThresholdUs"=dword:00000001
+"DisableDynamicPstate"=dword:00000001
 
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0002]
@@ -3469,6 +3475,7 @@ Nvidia
 "RMLpwrGrIdleThresholdUs"=dword:00000001
 "RMLpwrGrRgIdleThresholdUs"=dword:00000001
 "RMLpwrMsIdleThresholdUs"=dword:00000001
+"DisableDynamicPstate"=dword:00000001
 
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0003]
@@ -3480,6 +3487,22 @@ Nvidia
 "RMLpwrGrIdleThresholdUs"=dword:00000001
 "RMLpwrGrRgIdleThresholdUs"=dword:00000001
 "RMLpwrMsIdleThresholdUs"=dword:00000001
+"DisableDynamicPstate"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]
+"RmGpsPsEnablePerCpuCoreDpc"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power]
+"RmGpsPsEnablePerCpuCoreDpc"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\nvlddmkm]
+"RmGpsPsEnablePerCpuCoreDpc"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\nvlddmkm\NVAPI]
+"RmGpsPsEnablePerCpuCoreDpc"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\nvlddmkm\Global\NVTweak]
+"RmGpsPsEnablePerCpuCoreDpc"=dword:00000001
 
 
 
@@ -6077,6 +6100,11 @@ Keyboard
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\kbdhid\Parameters]
 "KeyboardDataQueueSize"=dword:00000016
 
+; sticky keys 
+
+[HKEY_CURRENT_USER\Control Panel\Accessibility]
+"StickyKeys"="506"
+
 
 --------------------------------------------------------------------------------------------------
 Mouse
@@ -6140,7 +6168,11 @@ Mouse
 "DoubleClickHeight2"="0,8"
 "DoubleClickSpeed2"="0,47"
 "DoubleClickWidth2"="0,4"
-
+"INPUT_MOUSE"=dword:00000000
+"EINGABE_TASTATUR"=dword:00000001
+"INPUT_HARDWARE"=dword:00000002
+"XBUTTON2"="0x0002"
+"XBUTTON1"="0x0001"
 
 
 ; mouse detection tweak 
@@ -6153,6 +6185,7 @@ Mouse
 
 ; mouse network input tweak
 
+[HKEY_CURRENT_USER\Control Panel\Mouse]
 "TcpMaxDataRetransmissions"=dword:000000003
 "SackOpts"=dword:000000001
 
@@ -6255,12 +6288,17 @@ Mouse
 "ConnectMultiplePorts"=dword:00000000
 "MaximumPortsServiced"=dword:00000003
 "PointerDeviceBaseName"="PointerClass"
+"SendOutputToAllPorts"=dword:00000000
+"MaximumPortsServiced"=dword:00000001
+
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mouhid\Parameters]
 "WppRecorder_TraceGuid"="{fc8df8fd-d105-40a9-af75-2eec294adf8d}"
 "ConnectMultiplePorts"=dword:00000000
 "MaximumPortsServiced"=dword:00000003
 "PointerDeviceBaseName"="PointerClass"
+"SendOutputToAllPorts"=dword:00000000
+"MaximumPortsServiced"=dword:00000001
 
 -----------------------------------------------------------------------------------------------------
 Priority 
