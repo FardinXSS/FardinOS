@@ -670,3 +670,163 @@ Network
 "MaxSockAddrLength"=dword:00000010
 "MinSockAddrLength"=dword:00000010
 
+------------------------------------------------------------------------------
+kernel
+Windows Registry Editor Version 5.00
+
+; Disable Coalescing Timer Interval
+
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\ModernSleep]
+"CoalescingTimerInterval"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power]
+"CoalescingTimerInterval"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]
+"CoalescingTimerInterval"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager]
+"CoalescingTimerInterval"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel]
+"CoalescingTimerInterval"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control]
+"CoalescingTimerInterval"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Executive]
+"CoalescingTimerInterval"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power]
+"CoalescingTimerInterval"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control]
+"CoalescingTimerInterval"=dword:00000000
+
+
+; Disable Prefetch and Superfetch
+
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters]
+"EnablePrefetcher"=dword:00000000
+"EnableBootTrace"=dword:00000000
+"EnableSuperfetch"=dword:00000000
+"FIFSOpMaxBlockTimeMs"=dword:00000000
+"FIBlockDbgBreak"=dword:00000001
+"FIPrefetchDelayMs"=dword:00000000
+"BootId"=-
+"BaseTime"=-
+
+; Executive
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Executive]
+"AdditionalCriticalWorkerThreads"=dword:00000002
+"AdditionalDelayedWorkerThreads"=dword:00000001
+
+
+
+
+; kernel debug poll
+
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel]
+"DebugPollInterval"=dword:000003e8
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"CopyBufferSize"=dword:00100000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System]
+"CopyFileBufferedSynchronousIo"=dword:00000040
+"CopyFileChunkSize"=dword:00008000
+"CopyFileOverlappedCount"=dword:00000020
+
+; Memory Management
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Memory Management]
+"DisablePagingExecutive"=dword:00000001
+"IoPageLockLimit"=dword:ffffffff
+"LargeSystemCache"=dword:00000001
+"NonPagedPoolSize"=dword:000000c0
+"PagedPoolSize"=dword:000000c0
+"PoolUsageMaximum"=dword:00000060
+"EnableCfg"=dword:00000000
+"ProtectionMode"=dword:00000000
+"DynamicMemory"=dword:00000001
+"EnforceWriteProtection"=dword:00000000
+"MakeLowMemory"=dword:00000001
+"CacheUnmapBehindLengthInMB"=dword:00000100
+"ModifiedWriteMaximum"=dword:00000020
+"SessionPoolSize"=dword:00000064
+"SessionViewSize"=dword:00000100
+"SystemCacheLimit"=dword:00000000
+"SessionSpaceLimit"=dword:00000000
+"WriteWatch"=dword:00000000
+"AllocationPreference"=-
+"ClearPageFileAtShutdown"=dword:00000000
+"SnapUnloads"=dword:00000001
+"MapAllocationFragment"=dword:00000001
+"NonPagedPoolQuota"=dword:00000000
+"NonPagedPoolSize"=dword:00000000
+"PagedPoolQuota"=dword:00000000
+"PagedPoolSize"=dword:00000000
+"Mirroring"=dword:00000000
+"SessionPoolSize"=dword:000000c0
+"SessionViewSize"=dword:000000c0
+"MinimumWorkingSet"=hex(b):00,00,00,00,00,10,00,00
+"MinimumFileCacheSize"=hex(b):00,00,00,00,00,10,00,00
+"OverlayTestMode"=dword:00000005
+"UseLargePages"=dword:00000001
+"WriteWatch"=dword:00000000
+"UnusedFileCache"=-
+"NonPagedPoolLimit"=dword:00000000
+"PagedPoolLimit"=dword:00000000
+"MapAllocationFragment"=dword:00010000	
+"DontVerifyRandomDrivers"=dword:00000001
+"EnableLowVaAccess"=dword:00000001
+"EnforceWriteProtection"=dword:00000000
+"MoveImages"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM]
+"MinimumWorkingSet"=hex(b):00,00,00,00,00,10,00,00
+"MinimumFileCacheSize"=hex(b):00,00,00,00,00,10,00,00
+"increaseuserva"=dword:0fffff80
+"InterruptSteeringDisabled"=dword:00000001
+"OverlayTestMode"=dword:00000005
+"UseLargePages"=dword:00000001
+
+; tick duration
+
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\kernel]
+"DebugPollInterval"=dword:000003e8
+"MaxDynamicTickDuration"=dword:000003e8
+"SerializeTimerExpiration"=dword:00000001
+
+[HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe]
+"UseLargePages"=dword:00000001
+
+[HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dllhost.exe]
+"UseLargePages"=dword:00000001
+
+[HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe]
+"UseLargePages"=dword:00000001
+
+[HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csgo.exe]
+"UseLargePages"=dword:00000001
+
+[HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\firefox.exe]
+"UseLargePages"=dword:00000001
+
+[HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe]
+"UseLargePages"=dword:00000001
+
+[HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\excel.exe]
+"UseLargePages"=dword:00000001
+
+[HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\powerpnt.exe]
+"UseLargePages"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\NlaSvc\Parameters\Internet]
+"EnableNoGatewayLocationDetection"=dword:00000001
+"CorpLocationProbeTimeout"=dword:0000001E
