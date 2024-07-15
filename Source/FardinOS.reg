@@ -3390,14 +3390,6 @@ Nvidia
 "LOWLATENCY"=dword:00000001
 "Node3DLowLatency"=dword:00000001
 "PciLatencyTimerControl"=dword:00000032
-"RMDeepL1EntryLatencyUsec"=dword:00000001
-"RmGspcMaxFtuS"=dword:00000001
-"RmGspcMinFtuS"=dword:00000001
-"RmGspcPerioduS"=dword:00000001
-"RMLpwrEiIdleThresholdUs"=dword:00000001
-"RMLpwrGrIdleThresholdUs"=dword:00000001
-"RMLpwrGrRgIdleThresholdUs"=dword:00000001
-"RMLpwrMsIdleThresholdUs"=dword:00000001
 "VRDirectFlipDPCDelayUs"=dword:00000001
 "VRDirectFlipTimingMarginUs"=dword:00000001
 "VRDirectJITFlipMsHybridFlipDelayUs"=dword:00000001
@@ -3411,20 +3403,13 @@ Nvidia
 "LOWLATENCY"=dword:00000001
 "Node3DLowLatency"=dword:00000001
 "PciLatencyTimerControl"=dword:00000032
-"RMDeepL1EntryLatencyUsec"=dword:00000001
-"RmGspcMaxFtuS"=dword:00000001
-"RmGspcMinFtuS"=dword:00000001
-"RmGspcPerioduS"=dword:00000001
-"RMLpwrEiIdleThresholdUs"=dword:00000001
-"RMLpwrGrIdleThresholdUs"=dword:00000001
-"RMLpwrGrRgIdleThresholdUs"=dword:00000001
-"RMLpwrMsIdleThresholdUs"=dword:00000001
 "VRDirectFlipDPCDelayUs"=dword:00000001
 "VRDirectFlipTimingMarginUs"=dword:00000001
 "VRDirectJITFlipMsHybridFlipDelayUs"=dword:00000001
 "vrrCursorMarginUs"=dword:00000001
 "vrrDeflickerMarginUs"=dword:00000001
 "vrrDeflickerMaxUs"=dword:00000001
+ 
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0002]
 "D3PCLatency"=dword:00000001
@@ -3432,14 +3417,19 @@ Nvidia
 "LOWLATENCY"=dword:00000001
 "Node3DLowLatency"=dword:00000001
 "PciLatencyTimerControl"=dword:00000032
-"RMDeepL1EntryLatencyUsec"=dword:00000001
-"RmGspcMaxFtuS"=dword:00000001
-"RmGspcMinFtuS"=dword:00000001
-"RmGspcPerioduS"=dword:00000001
-"RMLpwrEiIdleThresholdUs"=dword:00000001
-"RMLpwrGrIdleThresholdUs"=dword:00000001
-"RMLpwrGrRgIdleThresholdUs"=dword:00000001
-"RMLpwrMsIdleThresholdUs"=dword:00000001
+"VRDirectFlipDPCDelayUs"=dword:00000001
+"VRDirectFlipTimingMarginUs"=dword:00000001
+"VRDirectJITFlipMsHybridFlipDelayUs"=dword:00000001
+"vrrCursorMarginUs"=dword:00000001
+"vrrDeflickerMarginUs"=dword:00000001
+"vrrDeflickerMaxUs"=dword:00000001
+ 
+ [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0003]
+"D3PCLatency"=dword:00000001
+"F1TransitionLatency"=dword:00000001
+"LOWLATENCY"=dword:00000001
+"Node3DLowLatency"=dword:00000001
+"PciLatencyTimerControl"=dword:00000032
 "VRDirectFlipDPCDelayUs"=dword:00000001
 "VRDirectFlipTimingMarginUs"=dword:00000001
 "VRDirectJITFlipMsHybridFlipDelayUs"=dword:00000001
@@ -3447,12 +3437,9 @@ Nvidia
 "vrrDeflickerMarginUs"=dword:00000001
 "vrrDeflickerMaxUs"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0003]
-"D3PCLatency"=dword:00000001
-"F1TransitionLatency"=dword:00000001
-"LOWLATENCY"=dword:00000001
-"Node3DLowLatency"=dword:00000001
-"PciLatencyTimerControl"=dword:00000032
+; nvidia power tweaks
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000]
 "RMDeepL1EntryLatencyUsec"=dword:00000001
 "RmGspcMaxFtuS"=dword:00000001
 "RmGspcMinFtuS"=dword:00000001
@@ -3461,12 +3448,40 @@ Nvidia
 "RMLpwrGrIdleThresholdUs"=dword:00000001
 "RMLpwrGrRgIdleThresholdUs"=dword:00000001
 "RMLpwrMsIdleThresholdUs"=dword:00000001
-"VRDirectFlipDPCDelayUs"=dword:00000001
-"VRDirectFlipTimingMarginUs"=dword:00000001
-"VRDirectJITFlipMsHybridFlipDelayUs"=dword:00000001
-"vrrCursorMarginUs"=dword:00000001
-"vrrDeflickerMarginUs"=dword:00000001
-"vrrDeflickerMaxUs"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001]
+"RMDeepL1EntryLatencyUsec"=dword:00000001
+"RmGspcMaxFtuS"=dword:00000001
+"RmGspcMinFtuS"=dword:00000001
+"RmGspcPerioduS"=dword:00000001
+"RMLpwrEiIdleThresholdUs"=dword:00000001
+"RMLpwrGrIdleThresholdUs"=dword:00000001
+"RMLpwrGrRgIdleThresholdUs"=dword:00000001
+"RMLpwrMsIdleThresholdUs"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0002]
+"RMDeepL1EntryLatencyUsec"=dword:00000001
+"RmGspcMaxFtuS"=dword:00000001
+"RmGspcMinFtuS"=dword:00000001
+"RmGspcPerioduS"=dword:00000001
+"RMLpwrEiIdleThresholdUs"=dword:00000001
+"RMLpwrGrIdleThresholdUs"=dword:00000001
+"RMLpwrGrRgIdleThresholdUs"=dword:00000001
+"RMLpwrMsIdleThresholdUs"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0003]
+"RMDeepL1EntryLatencyUsec"=dword:00000001
+"RmGspcMaxFtuS"=dword:00000001
+"RmGspcMinFtuS"=dword:00000001
+"RmGspcPerioduS"=dword:00000001
+"RMLpwrEiIdleThresholdUs"=dword:00000001
+"RMLpwrGrIdleThresholdUs"=dword:00000001
+"RMLpwrGrRgIdleThresholdUs"=dword:00000001
+"RMLpwrMsIdleThresholdUs"=dword:00000001
+
+
 
 ;NVIDIA Control Panel Telemetry
 
@@ -5931,6 +5946,12 @@ Devices
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBXHCI\Parameters]
 "IoQueueWorkItem"=dword:0000000a
 
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBXHCI\Parameters]
+"DmaRemappingCompatible"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USB]
+"DisableSelectiveSuspend"=dword:00000001
+
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\usbhub\Parameters]
 "IoQueueWorkItem"=dword:0000000a
 
@@ -6031,16 +6052,22 @@ Keyboard
 "Last Valid Repeat"=dword:00000000
 "Last Valid Wait"=dword:00000000
 
+
+
 ;keyboard priority Class
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters]
 "CpuPriorityClass"=dword:00000004
 "IoPriority"=dword:00000004
 
+
+
 ; keyboard timer resolution
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters]
 "KeyboardSetTimerResolution"="0.001"
+
+
 
 ; keyboard data quene size
 
@@ -6054,6 +6081,31 @@ Keyboard
 --------------------------------------------------------------------------------------------------
 Mouse
 
+; mouse accessibility tweaks 
+
+[HKEY_USERS\.DEFAULT\Control Panel\Accessibility\MouseKeys]
+"Flags"="0"
+"MaximumSpeed"="0"
+"TimeToMaximumSpeed"="0"
+"MouseSpeed"="0"
+"MouseInputDelay"="Low Input Delay"
+"MouseLatency"="Low Latency"
+"MaximumMouseSpeed"="0"
+"LowMouseEingangsLatency"="Low Latency"
+"MouseSensorLowLatency"="Ultra Low Latency"
+"UltraLowLatencyMouseEingang"="Ultra Low Latency"
+
+
+
+; mouse cursor speed fix 
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorSpeed]
+"CursorSpeed"=dword:00000000
+
+
+
+
+
 ; mouse data quene size
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mouclass\Parameters]
@@ -6061,6 +6113,9 @@ Mouse
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mouhid\Parameters]
 "MouseDataQueueSize"=dword:00000016
+
+
+
 
 ; fix mouse clicks
 
@@ -6071,6 +6126,45 @@ Mouse
 "DoubleClickWidth"="4"
 "MouseThreshold1"="0"
 "MouseThreshold2"="0"
+"SnapToDefaultButton"="0"
+"SwapMouseButtons"="0"
+"MouseThreshold"="0"
+"SpeedThreshold"="0"
+"AccelerationSpeed"="0"
+"SpeedMouse"="0"
+"NoAnyAcceleration"="0"
+"TcpMaxDataRetransmissions"=dword:000000003
+"SackOpts"=dword:000000001
+"EnablePMTUDiscovery"=dword:000000009
+"EnablePMTUBHDetect"=dword:000000001
+"DoubleClickHeight2"="0,8"
+"DoubleClickSpeed2"="0,47"
+"DoubleClickWidth2"="0,4"
+
+
+
+; mouse detection tweak 
+
+[HKEY_CURRENT_USER\Control Panel\Mouse]
+"EnablePMTUDiscovery"=dword:000000009
+"EnablePMTUBHDetect"=dword:000000001
+
+
+
+; mouse network input tweak
+
+"TcpMaxDataRetransmissions"=dword:000000003
+"SackOpts"=dword:000000001
+
+
+
+; fix mouse audio delay
+
+[HKEY_CURRENT_USER\Control Panel\Mouse]
+"ActiveWindowTracking"=dword:00000000
+"Beep"="No"
+"ExtendedSounds"="No"
+
 
 ; fix mouse acceleration 
 
@@ -6080,6 +6174,32 @@ Mouse
 "MouseHoverWidth"="4"
 "MouseSensitivity"="10"
 "MouseSpeed"="0"
+"MouseTrails"="0"
+"MouseCP"="55"
+"MouseCL"="55"
+"Mousetrack"="908"
+"Mousecrib"="10"
+"Mousecontrolusb"="1"
+"MouseTK"="810"
+"FOV"="100"
+"MouseGrab"="908"
+"MouseStickOn"="10"
+"DockTargetMouseDragOutWidth"="1"
+"DockTargetMouseSideMoveWidth"="2"
+"DockTargetMouseWidth"="3"
+"DockTargetPenDragOutWidth"="3"
+"DockTargetPenSideMoveWidth"="1"
+"DockTargetPenWidth"="5"
+
+
+
+; honor mouse acceleration 
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\PrecisionTouchPad]
+"HonorMouseAccelSetting"=dword:00000001
+
+
+
 
 ; mouse smooth curve
 
@@ -6089,9 +6209,54 @@ Mouse
 "SmoothMouseYCurve"=hex:00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,\
   70,00,00,00,00,00,00,00,a8,00,00,00,00,00,00,00,e0,00,00,00,00,00
 
+
+; mouse priority Class
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mouclass\Parameters]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000004
+
+
+
+; mouse timer resolution 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mouclass\Parameters]
+"MouseSetTimerResolution"="0.001"
+
+
+; cursor movement tweak
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorSpeed]
+"CursorSensitivity"=dword:00002710
+"CursorUpdateInterval"=dword:00000001
+"IRRemoteNavigationDelta"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorMagnetism]
+"AttractionRectInsetInDIPS"=dword:00000005
+"DistanceThresholdInDIPS"=dword:00000028
+"MagnetismDelayInMilliseconds"=dword:00000032
+"MagnetismUpdateIntervalInMilliseconds"=dword:00000010
+"VelocityInDIPSPerSecond"=dword:00000168
+
+
+; mouse mouse axis tweaks
+
+[HKEY_CURRENT_USER\Control Panel\Mouse]
+"AreaMouseAxisX"=hex:00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00
+"AreaMouseAxisY"=hex:00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00
+
+
 ; mouse port tweaks 
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mouclass\Parameters]
+"WppRecorder_TraceGuid"="{fc8df8fd-d105-40a9-af75-2eec294adf8d}"
+"ConnectMultiplePorts"=dword:00000000
+"MaximumPortsServiced"=dword:00000003
+"PointerDeviceBaseName"="PointerClass"
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mouhid\Parameters]
 "WppRecorder_TraceGuid"="{fc8df8fd-d105-40a9-af75-2eec294adf8d}"
 "ConnectMultiplePorts"=dword:00000000
 "MaximumPortsServiced"=dword:00000003
