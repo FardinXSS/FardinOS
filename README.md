@@ -1,0 +1,2 @@
+# FardinOS
+Windows should be
