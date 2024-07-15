@@ -6250,6 +6250,11 @@ Mouse
 "IoPriority"=dword:00000004
 
 
+; HN_nice
+
+[HKEY_CURRENT_USER\Control Panel\Mouse]
+"F1Shumaker"=dword:00000001
+
 
 ; mouse timer resolution 
 
@@ -6301,6 +6306,29 @@ Mouse
 "MaximumPortsServiced"=dword:00000001
 
 -----------------------------------------------------------------------------------------------------
+Touchpad
+
+; touch detection tweak
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Synaptics\OEM\TouchPad]
+"PalmDetectConfig"=dword:00000000
+
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Synaptics\SynTP\TouchPad]
+"PalmDetectConfig"=dword:00000000
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------
 Priority 
 
 ;Thread tweaks
