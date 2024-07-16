@@ -3334,6 +3334,71 @@ GPU
 ------------------------------------------------------------------------------------
 :Power saving
 
+; Enable high perforomance mode
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power]
+"HighPerformance"=dword:00000001
+"HighestPerformance"=dword:00000001
+"MinimumThrottlePercent"=dword:00000000
+"MaximumThrottlePercent"=dword:00000000
+"MaximumPerformancePercent"=dword:00000064
+"Class1InitialUnparkCount"=dword:00000064
+"InitialUnparkCount"=dword:00000064
+"MaximumPerformancePercent"=dword:00000064
+
+
+; Disable Cstates
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Processor]
+"Cstates"=dword:00000000
+"Capabilities"=dword:7e066
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy]
+"fDisablePowerManagement"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PDC\Activators\Default\VetoPolicy]
+"EA:EnergySaverEngaged"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PDC\Activators\28\VetoPolicy]
+"EA:PowerStateDischarging"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\Policy\Settings\Misc]
+"DeviceIdlePolicy"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\Policy\Settings\Processor]
+"PerfEnergyPreference"=dword:00000000
+
+
+; GlobalPowerPolicy Minimal Power Management
+
+[HKEY_CURRENT_USER\Control Panel\PowerCfg\GlobalPowerPolicy]
+"Policies"=hex:01,00,00,00,02,00,00,00,01,00,00,00,00,00,00,00,02,00,00,00,00,\
+  00,00,00,00,00,00,00,00,00,00,00,2c,01,00,00,32,32,03,03,04,00,00,00,04,00,\
+  00,00,00,00,00,00,00,00,00,00,84,03,00,00,2c,01,00,00,00,00,00,00,84,03,00,\
+  00,00,01,64,64,64,64,00,00
+
+
+
+; click import powerplan
+
+[HKEY_CLASSES_ROOT\.pow]
+@="Power Plan"
+"FriendlyTypeName"="Power Plan"
+
+[HKEY_CLASSES_ROOT\.pow\DefaultIcon]
+@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
+  00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,70,00,6f,00,\
+  77,00,65,00,72,00,63,00,66,00,67,00,2e,00,63,00,70,00,6c,00,2c,00,2d,00,32,\
+  00,30,00,32,00,00,00
+
+[HKEY_CLASSES_ROOT\.pow\shell]
+
+[HKEY_CLASSES_ROOT\.pow\shell\Import]
+
+[HKEY_CLASSES_ROOT\.pow\shell\Import\command]
+@="powercfg /import \"%1\""
+
+
 ; Disable ACPI sleep
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ACPI\Parameters]
@@ -3734,7 +3799,25 @@ Nvidia
 "RMLpwrGrRgIdleThresholdUs"=dword:00000001
 "RMLpwrMsIdleThresholdUs"=dword:00000001
 "DisableDynamicPstate"=dword:00000001
-
+"EnablexUSBPowerControl"=dword:00000000
+"ExtendedPowerControl"=dword:00000000
+"RMPowerFeature"=dword:00000000
+"RMPowerFeature2"=dword:00000000
+"RMJTPowerControl"=dword:00000000
+"RmGpsPowerSteeringEnable"=dword:00000000
+"RMDisableOptimalPowerForPadlinkPll"=dword:00000001
+"RmMIONoPowerOff"=dword:00000001
+"PowerMizerEnable"=dword:00000000
+"PCIEPowerControl"=dword:00000000
+"RmClkPowerOffDramPllWhenUnused"=dword:00000000
+"PowerSaverHsyncOn"=dword:00000000
+"DesktopPanelPowerPolicy"=dword:00000000
+"PowerSavingTweaks"=dword:00000000
+"MuxSwitchPowerPolicy"=dword:00000000
+"EnableRuntimePowerManagement"=dword:00000000
+"EnableCrossFunctionPowerTracking"=dword:00000000
+"EnableCoprocPowerControl"=dword:00000000
+"UMDPowerFeatureConfig"=dword:00000000
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001]
 "RMDeepL1EntryLatencyUsec"=dword:00000001
@@ -3758,6 +3841,25 @@ Nvidia
 "RMLpwrGrRgIdleThresholdUs"=dword:00000001
 "RMLpwrMsIdleThresholdUs"=dword:00000001
 "DisableDynamicPstate"=dword:00000001
+"EnablexUSBPowerControl"=dword:00000000
+"ExtendedPowerControl"=dword:00000000
+"RMPowerFeature"=dword:00000000
+"RMPowerFeature2"=dword:00000000
+"RMJTPowerControl"=dword:00000000
+"RmGpsPowerSteeringEnable"=dword:00000000
+"RMDisableOptimalPowerForPadlinkPll"=dword:00000001
+"RmMIONoPowerOff"=dword:00000001
+"PowerMizerEnable"=dword:00000000
+"PCIEPowerControl"=dword:00000000
+"RmClkPowerOffDramPllWhenUnused"=dword:00000000
+"PowerSaverHsyncOn"=dword:00000000
+"DesktopPanelPowerPolicy"=dword:00000000
+"PowerSavingTweaks"=dword:00000000
+"MuxSwitchPowerPolicy"=dword:00000000
+"EnableRuntimePowerManagement"=dword:00000000
+"EnableCrossFunctionPowerTracking"=dword:00000000
+"EnableCoprocPowerControl"=dword:00000000
+"UMDPowerFeatureConfig"=dword:00000000
 
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0003]
@@ -3770,6 +3872,25 @@ Nvidia
 "RMLpwrGrRgIdleThresholdUs"=dword:00000001
 "RMLpwrMsIdleThresholdUs"=dword:00000001
 "DisableDynamicPstate"=dword:00000001
+"EnablexUSBPowerControl"=dword:00000000
+"ExtendedPowerControl"=dword:00000000
+"RMPowerFeature"=dword:00000000
+"RMPowerFeature2"=dword:00000000
+"RMJTPowerControl"=dword:00000000
+"RmGpsPowerSteeringEnable"=dword:00000000
+"RMDisableOptimalPowerForPadlinkPll"=dword:00000001
+"RmMIONoPowerOff"=dword:00000001
+"PowerMizerEnable"=dword:00000000
+"PCIEPowerControl"=dword:00000000
+"RmClkPowerOffDramPllWhenUnused"=dword:00000000
+"PowerSaverHsyncOn"=dword:00000000
+"DesktopPanelPowerPolicy"=dword:00000000
+"PowerSavingTweaks"=dword:00000000
+"MuxSwitchPowerPolicy"=dword:00000000
+"EnableRuntimePowerManagement"=dword:00000000
+"EnableCrossFunctionPowerTracking"=dword:00000000
+"EnableCoprocPowerControl"=dword:00000000
+"UMDPowerFeatureConfig"=dword:00000000
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]
 "RmGpsPsEnablePerCpuCoreDpc"=dword:00000001
