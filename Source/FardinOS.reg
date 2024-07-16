@@ -795,6 +795,14 @@ Windows Registry Editor Version 5.00
 "OverlayTestMode"=dword:00000005
 "UseLargePages"=dword:00000001
 
+: Disable Spectre and meltdown
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Memory Management]
+"FeatureSettingsOverrideMask"=dword:00000003
+"FeatureSettingsOverride"=dword:00000003
+"EnableCfg"=dword:00000000
+"MoveImages"=dword:00000000
+
 ; tick duration
 
 
@@ -832,7 +840,7 @@ Windows Registry Editor Version 5.00
 "CorpLocationProbeTimeout"=dword:0000001E
 
 ---------------------------------------------------------------------------------------------
-Latency
+:Latency
 
 
 
@@ -958,6 +966,8 @@ Latency
 "MonitorLatencyTolerance"=dword:00000001
 "MiracastPerfTrackGraphicsLatency"=dword:00000001
 "MaxIAverageGraphicsLatencyInOneBucket"=dword:00000001
+
+
 
 ; USBPollRate
 
@@ -3322,16 +3332,257 @@ GPU
 
 
 ------------------------------------------------------------------------------------
-Power saving
+:Power saving
 
-;CPU Core Parking
+; Disable ACPI sleep
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ACPI\Parameters]
+"Attribute"=dword:00000100
+
+
+
+; Disable Nvme power saving
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Classpnp]
+"NVMeDisablePerfThrottling"=dword:00000001
+
+;Disable ULPS
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000]
+"EnableUlps"=dword:00000000
+"PP_SclkDeepSleepDisable"=dword:00000001
+"PP_ThermalAutoThrottlingEnable"=dword:00000000
+"PP_DisableLightSleep"=dword:00000001
+"PP_GPUPowerDownEnabled"=dword:00000000
+"GCOOPTION_DisableGPIOPowerSaveMode"=dword:00000001
+
+; CPU Core Parking
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583]
 "ValueMax"=dword:00000064
 "ValueMin"=dword:00000064
 
 
+; Disable idle and enhanced power manage?ment for SSDs, HDDs, etc (note need command to get devices ids to apply this just example )
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\PCI\VEN_15AD&DEV_07E0&SUBSYS_07E015AD&REV_00\4&bbf9765&0&1888\Device Parameters\StorPort]
+"EnableIdlePowerManagement"=dword:00000000
+"EnhancedPowerManagementEnabled"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\PCI\VEN_15AD&DEV_07F0&SUBSYS_07F015AD&REV_00\4&3b50545d&0&00B8\Device Parameters\StorPort]
+"EnableIdlePowerManagement"=dword:00000000
+"EnhancedPowerManagementEnabled"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\stornvme\Parameters\Device]
+"IdlePowerMode"=dword:00000000
+
+
+; Disable hibernation
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Power]
+"HibernateEnabled"=dword:00000000
+"HibernateEnabledDefault"=dword:00000000
+
+
+
+; Disable deep IO coalescing
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Power]
+"DeepIoCoalescingEnabled"=dword:00000000
+
+;;Disable timer coalescing
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Power]
+"CoalescingTimerInterval"=dword:00000000
+
+; Disable Sleep Study
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Power]
+"SleepStudyDisabled"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Power]
+"SleepStudyDisabled"=dword:00000001
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Disable Power Throttling
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Power\PowerThrottling]
+"PowerThrottlingOff"=dword:00000001
+
+; Disable Fast Startup
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Power]
+"HiberbootEnabled"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Power]
+"HiberbootEnabled"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System]
+"HiberbootEnabled"=dword:00000000
+
+; Disable Hidden Network Power Saving Feature (note need command to get devices ids to apply this just example )
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001]
+"ACBSMode"="0"
+"AdaptiveIFS"="0"
+"SipsEnabled"="0"
+"*Enable9KJFTpt"="0"
+"Enable9KJFTpt"="0"
+"NicAutoPowerSaver"="0"
+"EnableDynamicPowerGating"="0"
+"AutoPowerSaveModeEnabled"="0"
+"AutoPowerSaveMode"="0"
+"EnableConnectedPowerGating"="0"
+"EnablePowerManagement"="0"
+"EnableSavePowerNow"="0"
+"SmartPowerDownEnable"="0"
+"SavePowerNowEnable"="0"
+
+
+; Disable Hidden Network Power Saving Feature for (intel adapter) (note need command to get devices ids to apply this just example )
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001]
+"*LsoV2IPv4"="1"
+"*LsoV2IPv6"="1"
+"*IPChecksumOffloadIPv4"="3"
+"*TCPChecksumOffloadIPv4"="3"
+"*TCPChecksumOffloadIPv6"="3"
+"*UDPChecksumOffloadIPv4"="3"
+"*UDPChecksumOffloadIPv6"="3"
+"*FlowControl"="3"
+"*PriorityVLANTag"="3"
+"*RSS"="1"
+"S5WakeOnLan"=-
+"WaitAutoNegComplete"="2"
+"WakeOnLink"=-
+"WolShutdownLinkSpeed"=-
+"*WakeOnMagicPacket"=-
+"*WakeOnPattern"=-
+"EnablePME"=-
+;;
+
+
+
+
+
+; disable power savings for (intel adapter) (note need command to get devices ids to apply this just example )
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001] (note need command to get devices ids to apply this just example )
+"*EEE"="0"
+"EEELinkAdvertisement"="0"
+"AdvancedEEE"="0"
+"ULPMode"="0"
+"GigaLite"="0"
+"EnableGreenEthernet"="0"
+"PowerSavingMode"="0"
+"ReduceSpeedOnPowerDown"="0"
+
+
+
+
+
+
+
+;Disable power gating and clock gating features
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000]
+"DisablePowerGating"=dword:00000001
+"DisableDrmdmaPowerGating"=dword:00000001
+"DisableUVDPowerGating"=dword:00000001
+"DisableXdmaPowerGating"=dword:00000001
+"DisableGmcPowerGating"=dword:00000001
+"DisableVCEPowerGating"=dword:00000001
+"DisableAcpPowerGating"=dword:00000001
+"DisableCpPowerGating"=dword:00000001
+"DisableDynamicGfxMGPowerGating"=dword:00000001
+"DisableGDSPowerGating"=dword:00000001
+"DisableGfxCGPowerGating"=dword:00000001
+"DisableSAMUPowerGating"=dword:00000001
+"DisableQuickGfxMGPowerGating"=dword:00000001
+"DisableAllClockGating"=dword:00000001
+"PO_DisableClockGating"=dword:00000001
+"DisableGfxClockGating"=dword:00000001
+"DisableSysClockGating"=dword:00000001
+"DisableSamuClockGating"=dword:00000001
+"DisableXdmaSclkGating"=dword:00000001
+"EnableVceSwClockGating"=dword:00000000
+"EnableUvdClockGating"=dword:00000000
+"DisableVceClockGating"=dword:00000001
+"DisableHdpMGClockGating"=dword:00000001
+"PP_MMClockGatingEnabled"=dword:00000000
+
+; Disable Ndis power saving
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NDIS\Parameters]
+"EnableNicAutoPowerSaverInSleepStudy"=dword:00000000
+"ImplicitPowerRefManagement"=dword:00000000
+"DebugLoggingMode"=dword:00000000
+"DefaultPnPCapabilities"=dword:00000018
+"TrackNblOwner"=dword:00000000
+"DisableNDISWatchDog"=dword:00000001
+"LogPages"=dword:00000000
+"ForceLogsInMiniDump"=dword:00000000
+"DisableWDIWatchdogForceBugcheck"=dword:00000001
+
+
+;Disable Network Power Saving
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001] (note need command to get devices ids to apply this just example )
+"*EEE"="0"
+"EEELinkAdvertisement"="0"
+"AdvancedEEE"="0"
+"ULPMode"="0"
+"GigaLite"="0"
+"EnableGreenEthernet"="0"
+"PowerSavingMode"="0"
+"ReduceSpeedOnPowerDown"="0"
+
+
+; Disable Hidden Network Power Saving Features
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001](note need command to get devices ids to apply this just example )
+"ACBSMode"="0"
+"AdaptiveIFS"="0"
+"SipsEnabled"="0"
+"*Enable9KJFTpt"="0"
+"Enable9KJFTpt"="0"
+"NicAutoPowerSaver"="0"
+"EnableDynamicPowerGating"="0"
+"AutoPowerSaveModeEnabled"="0"
+"AutoPowerSaveMode"="0"
+"EnableConnectedPowerGating"="0"
+"EnablePowerManagement"="0"
+"EnableSavePowerNow"="0"
+"SmartPowerDownEnable"="0"
+"SavePowerNowEnable"="0"
+
+; Network Hidden Registry (Hit-Reg Tweaks) (note need command to get devices ids to apply this just example )
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001] (note need command to get devices ids to apply this just example )
+"EnableDCA"="1"
+"AlternateSemaphoreDelay"="0"
+"*PacketDirect"="1"
+"DynamicLTR"="0"
+"StoreBadPackets"="0"
+"OBFFEnabled"="0"
+"EnableTcpTimer"="0"
+"FwTracerEnabled"=dword:00000000
+"*Sriov"="0"
+"DisableIntelRST"="1"
+"EnableETW"="0"
+"VMQ"="0"
+"*VMQ"="0"
+"SwParsing"="0"
+"EnableCoalesce"="0"
+"RssOnHostVPorts"="0"
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\AFD\Parameters]
+"DisableRawSecurity"=dword:00000001
+"DynamicSendBufferDisable"=dword:00000000
+"IrpStackSize"=dword:00000032
+"PriorityBoost"=dword:00000000
+"DoNotHoldNicBuffers"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NDIS\Parameters]
+"EnableNicAutoPowerSaverInSleepStudy"=dword:00000000
+"ImplicitPowerRefManagement"=dword:00000000
+"DebugLoggingMode"=dword:00000000
+"DefaultPnPCapabilities"=dword:00000018
+"TrackNblOwner"=dword:00000000
+"DisableNDISWatchDog"=dword:00000001
+"LogPages"=dword:00000000
+"ForceLogsInMiniDump"=dword:00000000
+"DisableWDIWatchdogForceBugcheck"=dword:00000001
+
+
 --------------------------------------------------------------------------------------------------------
 Nvidia
+
 
 
 ; remove nvidia log file
@@ -3341,9 +3592,16 @@ Nvidia
 "LogFile"=-
 "LogLevel"=dword:00000000
 
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\nvlddmkm]
+"LogErrorEntries"=dword:00000000
+"LogEventEntries"=dword:00000000
+"LogPagingEntries"=dword:00000000
+"LogWarningEntries"=dword:00000000
+"EnableMemoryTiling"=dword:00000000
+"EnableBugcheckDisplay"=dword:00000000
+"ValidateBlitSubRects"=dword:00000000
 
 ; skip_sig_check
-
 [HKEY_LOCAL_MACHINE\SOFTWARE\NVIDIA Corporation\Global]
 "{41FCC608-8496-4DEF-B43E-7D9BD675A6FF}"=dword:00000001
 
@@ -3353,7 +3611,6 @@ Nvidia
 
 
 ; Enable K-Boost for GPU
-
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000]
 "PerfLevelSrc"=-
 "PowerMizerEnable"=dword:00000001
@@ -3379,14 +3636,23 @@ Nvidia
 "PowerMizerLevelAC"=-
 
 
-; enable preempton
+; Disable Preemption
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\GraphicsDrivers\Scheduler]
+"EnablePreemption"=dword:00000000
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Scheduler]
-"EnablePreemption"=dword:00000001
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\nvlddmkm]
+"DisablePreemption"=dword:00000001
+"EnableSCGMidBufferPreemption"=dword:00000000
+"EnableMidGfxPreemptionVGPU"=dword:00000000
+"EnableMidGfxPreemption"=dword:00000000
+"EnableMidBufferPreemption"=dword:00000000
+"EnableCEPreemption"=dword:00000000
+"EnableAsyncMidBufferPreemption"=dword:00000000
+"DisablePreemptionOnS3S4"=dword:00000001
+"DisableCudaContextPreemption"=dword:00000001
 
 
 ;nvidia latency tweaks
-
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000]
 "D3PCLatency"=dword:00000001
 "F1TransitionLatency"=dword:00000001
@@ -3440,7 +3706,23 @@ Nvidia
 "vrrDeflickerMarginUs"=dword:00000001
 "vrrDeflickerMaxUs"=dword:00000001
 
+; disable pstate
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000] (note need command to get devices ids to apply this just example )
+"PCIEPowerControl"=dword:00000000
+"DisableOverclockedPstates"=dword:00000001
+"DisableAsyncPStates"=dword:00000001
+"PowerSaverHsyncOn"=dword:00000000
+
+; nvidia display power saving
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\nvlddmkm\Global\NVTweak]
+"DisplayPowerSaving"=dword:00000000
+
 ; nvidia power tweaks
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\nvlddmkm]
+"PCIEPowerControl"=dword:00000000
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000]
 "RMDeepL1EntryLatencyUsec"=dword:00000001
@@ -5978,6 +6260,38 @@ Devices
 "Beamforming"=dword:00000000
 
 
+
+; USB Latency tweaks
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\USB\ROOT_HUB\5&2891968b&0\Device Parameters]
+"fid_D1Latency"=dword:00000000
+"fid_D2Latency"=dword:00000000
+"fid_D3Latency"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\USB\ROOT_HUB20\5&36a4b5d6&0\Device Parameters]
+"fid_D1Latency"=dword:00000000
+"fid_D2Latency"=dword:00000000
+"fid_D3Latency"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\USB\ROOT_HUB30\5&11106705&0&0\Device Parameters]
+"fid_D1Latency"=dword:00000000
+"fid_D2Latency"=dword:00000000
+"fid_D3Latency"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\USB\VID_0E0F&PID_0003\6&39d724fe&0&5\Device Parameters]
+"fid_D1Latency"=dword:00000000
+"fid_D2Latency"=dword:00000000
+"fid_D3Latency"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\USB\VID_0E0F&PID_0003&MI_00\7&bcbfcc2&0&0000\Device Parameters]
+"fid_D1Latency"=dword:00000000
+"fid_D2Latency"=dword:00000000
+"fid_D3Latency"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\USB\VID_0E0F&PID_0003&MI_01\7&bcbfcc2&0&0001\Device Parameters]
+"fid_D1Latency"=dword:00000000
+"fid_D2Latency"=dword:00000000
+"fid_D3Latency"=dword:00000000
+
 ; USB Port Optimization
 
 
@@ -6486,6 +6800,751 @@ Touchpad
 
 -------------------------------------------------------------------------------------------------------
 Priority 
+
+; Application Priority and Affinities
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Acrobat.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Acrobat.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\acrotray.exe]
+"Debugger"="C:\\WINDOWS\\system32\\systray.exe"
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\acrotray.exe\PerfOptions]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Among Us.exe]
+"MaxLoaderThreads"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Among Us.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\BananaBugs.exe]
+"MaxLoaderThreads"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\BananaBugs.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Bitwarden.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Bitwarden.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\BlueMail.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\BlueMail.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Bookworm.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Bookworm.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\candycrushsaga.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\candycrushsaga.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe]
+"MaxLoaderThreads"=dword:00000004
+"EAFModules"=-
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Chuzzle.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Chuzzle.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CIU.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CIU.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\cmd.exe]
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\converter.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\converter.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csgo.exe]
+
+"EAFModules"=""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csgo.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ctfmon.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Cyberpunk2077.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Cyberpunk2077.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Discord.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Discord.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Ditto.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Ditto.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000001
+"IoPriority"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DoomEternalx64vk.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DoomEternalx64vk.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DragonCity.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DragonCity.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000005
+"IoPriority"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\EABackgroundService.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\EABackgroundService.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000001
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\EarTrumpet.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\EarTrumpet.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000001
+"IoPriority"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\eurotrucks2.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\eurotrucks2.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\excel.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe]
+"MitigationAuditOptions"=hex:22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,\
+  22,22,22,22,22,22,22,22
+"MitigationOptions"=hex:22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,\
+  22,22,22,22,22,22
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Ext2Srv.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\FarCry6.exe]
+"MitigationOptions"=hex:00,00,00,00,00,02,00,00,00,02,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00
+"MitigationAuditOptions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,00
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\FarCry6.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\firefox.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\firefox.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\FortniteClient-Win64-Shipping.exe]
+"MaxLoaderThreads"=dword:00000008
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\FortniteClient-Win64-Shipping.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ForzaHorizon3.exe]
+"MaxLoaderThreads"=dword:00000008
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ForzaHorizon3.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ForzaHorizon4.exe]
+"MaxLoaderThreads"=dword:00000008
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ForzaHorizon4.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ForzaHorizon5.exe]
+"MaxLoaderThreads"=dword:00000008
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ForzaHorizon5.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\game]
+"MaxLoaderThreads"=dword:00000008
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\game\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GameOverlayUI.exe]
+"Debugger"="C:\\WINDOWS\\system32\\systray.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GeometryDash.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GeometryDash.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupyCtrl.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupyCtrl.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupyHelp32.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupyHelp64.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupySrv]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupySrv\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupySrv.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupySvc32.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupySvc32.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupySvc64.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GroupySvc64.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\gta-iii.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\gta-iii.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\gta-lc.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\gta-lc.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\gta-sa.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\gta-sa.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\gta-vc.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\gta-vc.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GTAV.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GTAV.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\IDMan.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\IDMan.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000005
+"IoPriority"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\iScrRec.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\iScrRec.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lghub_updater.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lghub_updater.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000001
+"IoPriority"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Lightroom.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Lightroom.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000001
+"IoPriority"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Lightshot.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Lightshot.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Ludo King.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Ludo King.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MegaRun-WinStore.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MegaRun-WinStore.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\metin2client.exe]
+"MaxLoaderThreads"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\metin2client.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Monopoly.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Monopoly_Plus.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\mpc-hc64.exe]
+"MitigationOptions"=hex:00,00,00,00,00,02,00,00,00,02,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00
+"MitigationAuditOptions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,00
+"EAFModules"=""
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\vgc.exe]
+"MitigationOptions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00
+"MitigationAuditOptions"=hex:00,00,00,00,10,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,00
+"EAFModules"=""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\msaccess.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\msedge.exe]
+"MaxLoaderThreads"=dword:00000004
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\msedge.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\mspub.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Muck.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\mysummercar.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Notepad++.exe]
+"MaxLoaderThreads"=dword:00000001
+"MitigationOptions"=hex:00,00,00,00,00,02,00,00,00,02,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00
+"MitigationAuditOptions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,00
+"EAFModules"=""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Notepad++.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe]
+"MaxLoaderThreads"=dword:00000001
+"MitigationOptions"=hex:00,00,00,00,00,02,00,00,00,02,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00
+"MitigationAuditOptions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,00
+"EAFModules"=""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\NVDisplay.Container.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\OfficeClickToRun.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000001
+"IoPriority"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\opera.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\operagx.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\photoshop.exe]
+"MitigationOptions"=hex:00,00,00,00,00,02,00,00,00,02,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00
+"MitigationAuditOptions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,00
+"EAFModules"=""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\photoshop.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\PizzaFrenzy.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\PlantsVsZombies.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\PlayGtaV.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\powerpnt.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Rambox.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Rambox.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\RAVCpl64.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\re6.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\re7.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\re8.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Resolve.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\RuntimeBroker.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\RuntimeBroker.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000005
+"IoPriority"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ShellExperienceHost.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SnowRunner.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SonicMania.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\spoolsv.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Spotify.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000001
+"IoPriority"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SpotifyStartupTask.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000001
+"IoPriority"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Start11Srv.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Start11_64.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Steam.exe]
+"MaxLoaderThreads"=dword:00000001
+"mpc-hc64.exe"=dword:00000004
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Steam.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\steamwebhelper.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe]
+"MaxLoaderThreads"=dword:00000001
+"MitigationAuditOptions"=hex:22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,\
+  22,22,22,22,22,22,22,22
+"MitigationOptions"=hex:22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,\
+  22,22,22,22,22,22
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000005
+"IoPriority"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Teams.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Terraria.exe]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Terraria.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\TheCrew2.exe]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\TheCrew2.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\TheCrew2_BE.exe]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\TheCrew2_BE.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Update.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Update.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\VideoEditorPlus.exe]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\VideoEditorPlus.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000004
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WheresMyWater2.WindowsStore.exe]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WheresMyWater2.WindowsStore.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WinBM.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000003
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe]
+"MaxLoaderThreads"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000005
+"IoPriority"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Zoom.exe\PerfOptions]
+"CpuPriorityClass"=dword:00000006
+"IoPriority"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe]
+"Debugger"="C:\\WINDOWS\\system32\\systray.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\EOSNotify.exe]
+"Debugger"="C:\\WINDOWS\\system32\\systray.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\AcroServicesUpdater.exe]
+"Debugger"="C:\\WINDOWS\\system32\\systray.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\mssfeedssync.exe]
+"Debugger"="C:\\WINDOWS\\system32\\systray.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WebExperienceHostApp.exe]
+"Debugger"="C:\\WINDOWS\\system32\\systray.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\wermgr.exe]
+"Debugger"="C:\\WINDOWS\\system32\\systray.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ngentask.exe]
+"Debugger"="C:\\WINDOWS\\system32\\systray.exe"
+
+
+; IRQ Tweaks
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl]
+"ConvertibleSlateMode"=dword:00000000
+"Win32PrioritySeparation"=dword:00000026
+"IRQ4294967253Priority"=dword:00000001
+"IRQ4294967254Priority"=dword:00000001
+"IRQ4294967259Priority"=dword:00000001
+"IRQ4294967256Priority"=dword:00000001
+"IRQ4294967257Priority"=dword:00000001
+"IRQ4294967258Priority"=dword:00000001
+"IRQ4294967260Priority"=dword:00000002
+"IRQ4294967261Priority"=dword:00000002
+"IRQ4294967262Priority"=dword:00000001
+"IRQ39Priority"=dword:00000001
+"IRQ1024Priority"=dword:00000001
+"IRQ4294967287Priority"=dword:00000001
+"IRQ4294967288Priority"=dword:00000001
+"IRQ4294967289Priority"=dword:00000001
+"IRQ4294967290Priority"=dword:00000001
+"IRQ4294967291Priority"=dword:00000001
+"IRQ4294967292Priority"=dword:00000001
+"IRQ4294967293Priority"=dword:00000001
+"IRQ4294967294Priority"=dword:00000001
+"IRQ1Priority"=dword:00000001
+"IRQ6Priority"=dword:00000001
+"IRQ7Priority"=dword:00000001
+"IRQ25Priority"=dword:00000001
+"IRQ36Priority"=dword:00000001
+"IRQ55Priority"=dword:00000001
+"IRQ57Priority"=dword:00000001
+"IRQ8Priority"=dword:00000001
+
+
+
+
 
 ;Thread tweaks
 
