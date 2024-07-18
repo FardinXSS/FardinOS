@@ -2,79 +2,6 @@ Windows Registry Editor Version 5.00
 
 
 -----------------------------------------------------------------------------------------
-bloatwares
-
-; remove 3d objects from explorer pane
-
-[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}]
-
-[-HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}]
-
-; remove pin to quick quick access in context menu
-
-[-HKEY_CLASSES_ROOT\Folder\shell\pintohome]
-
-[-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\pintohome]
-
-; remove share in context menu
-
-[-HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\ModernSharing]
-
-
-; enable the legacy photo viewer
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations]
-".tif"="PhotoViewer.FileAssoc.Tiff"
-".tiff"="PhotoViewer.FileAssoc.Tiff"
-".bmp"="PhotoViewer.FileAssoc.Tiff"
-".dib"="PhotoViewer.FileAssoc.Tiff"
-".gif"="PhotoViewer.FileAssoc.Tiff"
-".jfif"="PhotoViewer.FileAssoc.Tiff"
-".jpe"="PhotoViewer.FileAssoc.Tiff"
-".jpeg"="PhotoViewer.FileAssoc.Tiff"
-".jpg"="PhotoViewer.FileAssoc.Tiff"
-".jxr"="PhotoViewer.FileAssoc.Tiff"
-".png"="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.jpg]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.jpeg]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.gif]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.png]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.bmp]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.tiff]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.ico]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.tif]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.wdp]
-@="PhotoViewer.FileAssoc.Wdp"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.jfif]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.dib]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.jpe]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\.jxr]
-@="PhotoViewer.FileAssoc.Tiff"
-
 
 
 -----------------------------------------------------------------------------------------
@@ -85,32 +12,48 @@ Network
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WcmSvc\CellularFailover]
 "AllowFailover"=dword:00000002
 
-; AFD Parameters
+; Buffer and Memory Management
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AFD\Parameters]
 "DynamicSendBufferDisable"=dword:00000000
 "FastSendDatagramThreshold"=dword:000005dc
 "FastCopyReceiveThreshold"=dword:000005dc
-"MaxActiveTransmitFileCount"=dword:00000000
 "MaxFastCopyTransmit"=dword:00001000
 "MaxFastTransmit"=dword:00008000
-"PriorityBoost"=dword:00000004
 "DoNotHoldNICBuffers"=dword:00000001
-"TransmitWorker"=dword:00000020
 "DefaultReceiveWindow"=dword:00008192
 "DefaultSendWindow"=dword:00008192
-"DisableAddressSharing"=dword:00000001
 "LargeBufferSize"=dword:00010000
+"BufferMultiplier"=dword:00000400
+
+
+; Performance and Optimization
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AFD\Parameters]
+"MaxActiveTransmitFileCount"=dword:00000000
+"PriorityBoost"=dword:00000004
+"TransmitWorker"=dword:00000020
 "IRPStackSize"=dword:00000014
-"DisableRawSecurity"=dword:00000001
 "DisableDirectAcceptEx"=dword:00000001
 "DisableChainedReceive"=dword:00000001
+"KeepAliveInterval"=dword:00000001
+
+
+; Security and Address Handling
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AFD\Parameters]
+"DisableAddressSharing"=dword:00000001
+"DisableRawSecurity"=dword:00000001
+
+
+
+Dynamic Backlog Settings
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AFD\Parameters]
 "EnableDynamicBacklog"=dword:00000001
 "MinimumDynamicBacklog"=dword:00000020
 "MaximumDynamicBacklog"=dword:00001000
 "DynamicBacklogGrowthDelta"=dword:00000010
-"BufferMultiplier"=dword:00000400
-"KeepAliveInterval"=dword:00000001
 
 
 ; Autotuning Internet Speed and making it persistent 
@@ -550,9 +493,11 @@ Network
 "MaxNumRssCpus"=dword:00000001
 
 
-;Network Settings for Melody 1x.0y (applied to 12.07.xx,13.07.xx and 14.06.xx)
 
-;tcp-ip
+
+
+
+; LanmanWorkstation Settings:
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LanmanWorkstation]
 "AllowOfflineFilesforCAShares"=dword:00000000
@@ -561,14 +506,37 @@ Network
 "DisableBandwidthThrottling"=dword:00000001
 "DisableLargeMtu"=dword:00000000
 
+
+; Network Provider Settings:
+
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\NetworkProvider]
 "RestoreConnection"=dword:00000001
 "WakeUp"=dword:00000000
+
+
+; TCP/IP General Settings:
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters]
 "EnableTCPA"=dword:00000000
 "DeadGWDetectDefault"=dword:00000001
 "DisableTaskOffload"=dword:00000001
+"DefaultTTL"=dword:00000040
+"EnableDCA"=dword:00000000
+"DisableLargeMtu"=dword:00000000
+"AllowUnqualifiedQuery"=dword:00000001
+"DisableMediaSenseEventLog"=dword:00000001
+"DisableRss"=dword:00000000
+"DisableTcpChimneyOffload"=dword:00000000
+"EnableAddrMaskReply"=dword:00000000
+"EnableConnectionRateLimiting"=dword:00000000
+"EnableHeuristics"=dword:00000001
+"EnableIPAutoConfigurationLimits"=dword:00000000
+"EnableTCPA"=dword:00000000
+
+
+; TCP Specific Settings:
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters]
 "TcpMaxDupAcks"=dword:00000002
 "Tcp1323Opts"=dword:00000001
 "TcpTimedWaitDelay"=dword:0000001e
@@ -583,27 +551,27 @@ Network
 "TcpMaxConnectResponseRetransmissions"=dword:00000002
 "TCPCongestionControl"=dword:00000001
 "SackOpts"=dword:00000000
-"DefaultTTL"=dword:00000040
 "CongestionAlgorithm"=dword:00000001
+"MaxUserPort"=dword:0000fffe
+"KeepAliveTime"=dword:006ddd00
+
+
+; Forwarding and Buffer Settings:
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters]
 "ForwardBufferMemory"=dword:00150016
 "MaxForwardBufferMemory"=dword:00150016
 "NumForwardPackets"=dword:00000586
 "MaxNumForwardPackets"=dword:00000586
-"EnableDCA"=dword:00000000
-"DisableLargeMtu"=dword:00000000
-"AllowUnqualifiedQuery"=dword:00000001
-"DisableMediaSenseEventLog"=dword:00000001
-"DisableRss"=dword:00000000
-"DisableTcpChimneyOffload"=dword:00000000
+```
+
+; DNS Settings:
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters]
 "DnsOutstandingQueriesCount"=dword:000003e8
 "DnsQueryTimeouts"=REG_MULTI_SZ:"1 1 2 2 4 0"
-"EnableAddrMaskReply"=dword:00000000
-"EnableConnectionRateLimiting"=dword:00000000
-"EnableHeuristics"=dword:00000001
-"EnableIPAutoConfigurationLimits"=dword:00000000
-"EnableTCPA"=dword:00000000
-"MaxUserPort"=dword:0000fffe
-"KeepAliveTime"=dword:006ddd00
+
+; Network Settings
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters]
 "EnableConnectionRateLimiting"=-
@@ -612,21 +580,29 @@ Network
 "FastSendDatagramThreshold"=dword:00000000
 "DelayedAckFrequency"=dword:00000001
 "DelayedAckTicks"=dword:00000001
-"MaxConnectionsPer1_0Server"=dword:0000000a
-"MaxConnectionsPerServer"=dword:0000000a
+
+; ARP Settings
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters]
 "ArpAlwaysSourceRoute"=dword:00000000
 "ArpCacheLife"=dword:00001800
 "ArpCacheMinReferencedLife"=dword:00003600
 "ArpCacheSize"=dword:00000200
-"MaxFreeTcbs"=dword:0000ffff
-"MaxHashTableSize"=dword:0000ffff
-"MaxFreeTWTcbs"=dword:00010000
+
+; TCP Settings
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters]
+"MaxConnectionsPer1_0Server"=dword:0000000a
+"MaxConnectionsPerServer"=dword:0000000a
 "EnableFastRouteLookup"=dword:00000001
 "SynAttackProtect"=dword:00000001
-"SyncDomainWithMembership""=dword:00000001
 "StrictTimeWaitSeqCheck"=dword:00000001
 "NumTcbTablePartitions"=dword:00000022
 "MultihopSets"=dword:0000000f
+
+; IP Settings
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters]
 "EnableIPAutoConfigurationLimits"=dword:00000001
 "EnableWsd"=dword:00000000
 "IPEnableRouter"=dword:00000001
@@ -3443,6 +3419,11 @@ Windows
 "{e1c14c5b-d3f4-4227-b102-afb4e2a56020}"=dword:00000077
 
 
+
+
+------------------------------------------------------------------------------------
+:GPU
+
 ; Turn_OFF_optimizations_for_windowed_games
 
 [HKEY_CURRENT_USER\Software\Microsoft\DirectX\GraphicsSettings]
@@ -3451,8 +3432,63 @@ Windows
 [HKEY_CURRENT_USER\Software\Microsoft\DirectX\UserGpuPreferences]
 "DirectXUserGlobalSettings"="SwapEffectUpgradeEnable=0;"
 
-------------------------------------------------------------------------------------
-:GPU
+; Disable GPU power menagement 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]
+"PowerSavingTweaks"=dword:00000000
+"EnableRuntimePowerManagement"=dword:00000000
+"RmClkPowerOffDramPllWhenUnused"=dword:00000000
+
+
+; GPU performance mode
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]
+"EnablePerformanceMode"=dword:00000001
+"EnableMidBufferPreemptionForHighTdrTimeout"=dword:00000000
+"PerfAnalyzeMidBufferPreemption"=dword:00000000
+
+
+; Monitor intolarence 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]
+"MonitorRefreshLatencyTolerance"=dword:00000001
+"DefaultD3TransitionLatencyActivelyUsed"=dword:00000001
+"DefaultD3TransitionLatencyIdleNoContext"=dword:00000001
+"DefaultLatencyToleranceIdle0"=dword:00000001
+"DefaultLatencyToleranceNoContext"=dword:00000001
+
+; Render Tweaks
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]
+"Disable_OverlayDSQualityEnhancement"=dword:00000001
+"DisableGDIAcceleration"=dword:00000000
+"DisableKmRender"=dword:00000000
+"DisableKmRenderBoost"=dword:00100111
+
+
+
+
+
+
+
+
+
+
+
+
+
+; GPU latency tweaks
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]
+"DpiMapIommuContiguous"=dword:00000001
+"UseGpuTimer"=dword:00000001
+"PrimaryPushBufferSize"=dword:00000001
+"F1TransitionLatency"=dword:00000001
+"D3PCLatency"=dword:00000000
+"RMDeepL1EntryLatencyUsec"=dword:00000001
+"PciLatencyTimerControl"=dword:00000014
+
+
 
 ; Time-Dependent Redirection
 
@@ -3850,6 +3886,29 @@ Nvidia
 "EnableAsyncMidBufferPreemption"=dword:00000000
 "DisablePreemptionOnS3S4"=dword:00000001
 "DisableCudaContextPreemption"=dword:00000001
+
+
+; Flip and Preemption
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]
+"DisablePreemption"=dword:00000001
+"ComputePreemption"=dword:00000000
+"ComputePreemptionLevel"=dword:00000000
+"DisableCudaContextPreemption"=dword:00000001
+"DisableDynamicPstate"=dword:00000001
+"DisableKmRenderBoost"=dword:00000000
+
+
+
+"EnableDirectFlip"=dword:00000001
+"EnableIndependentFlip"=dword:00000001
+"EnableMidBufferPreemptionForHighTdrTimeout"=dword:00000000
+"EnableMidGfxPreemption"=dword:00000000
+"EnableMidGfxPreemptionVGPU"=dword:00000000
+
+
+
+
 
 
 ;nvidia latency tweaks
@@ -12062,6 +12121,81 @@ ScenarioExecutionEnabled"=dword:00000000
 
 ------------------------------------------------------------------------------------------------
 :Windows
+
+
+bloatwares
+
+; remove 3d objects from explorer pane
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}]
+
+; remove pin to quick quick access in context menu
+
+[-HKEY_CLASSES_ROOT\Folder\shell\pintohome]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\pintohome]
+
+; remove share in context menu
+
+[-HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\ModernSharing]
+
+
+; enable the legacy photo viewer
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations]
+".tif"="PhotoViewer.FileAssoc.Tiff"
+".tiff"="PhotoViewer.FileAssoc.Tiff"
+".bmp"="PhotoViewer.FileAssoc.Tiff"
+".dib"="PhotoViewer.FileAssoc.Tiff"
+".gif"="PhotoViewer.FileAssoc.Tiff"
+".jfif"="PhotoViewer.FileAssoc.Tiff"
+".jpe"="PhotoViewer.FileAssoc.Tiff"
+".jpeg"="PhotoViewer.FileAssoc.Tiff"
+".jpg"="PhotoViewer.FileAssoc.Tiff"
+".jxr"="PhotoViewer.FileAssoc.Tiff"
+".png"="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.jpg]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.jpeg]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.gif]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.png]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.bmp]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.tiff]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.ico]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.tif]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.wdp]
+@="PhotoViewer.FileAssoc.Wdp"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.jfif]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.dib]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.jpe]
+@="PhotoViewer.FileAssoc.Tiff"
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\.jxr]
+@="PhotoViewer.FileAssoc.Tiff"
+
 
 
 ; disable notifications network usage
